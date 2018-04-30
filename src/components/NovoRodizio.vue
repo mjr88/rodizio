@@ -44,7 +44,7 @@
         <div class="col s1">
           <div class="switch center-align">
             <label>
-              <input type="checkbox">
+              <input type="checkbox" v-model="rodizio.dias.seg">
               <span class="lever"></span>
             </label>
           </div>
@@ -52,7 +52,7 @@
         <div class="col s1">
           <div class="switch center-align">
             <label>
-              <input type="checkbox">
+              <input type="checkbox" v-model="rodizio.dias.ter">
               <span class="lever"></span>
             </label>
           </div>
@@ -60,7 +60,7 @@
         <div class="col s1">
           <div class="switch center-align">
             <label>
-              <input type="checkbox">
+              <input type="checkbox" v-model="rodizio.dias.qua">
               <span class="lever"></span>
             </label>
           </div>
@@ -68,7 +68,7 @@
         <div class="col s1">
           <div class="switch center-align">
             <label>
-              <input type="checkbox">
+              <input type="checkbox" v-model="rodizio.dias.qui">
               <span class="lever"></span>
             </label>
           </div>
@@ -76,7 +76,7 @@
         <div class="col s1">
           <div class="switch center-align">
             <label>
-              <input type="checkbox">
+              <input type="checkbox" v-model="rodizio.dias.sex">
               <span class="lever"></span>
             </label>
           </div>
@@ -84,7 +84,7 @@
         <div class="col s1">
           <div class="switch center-align">
             <label>
-              <input type="checkbox">
+              <input type="checkbox" v-model="rodizio.dias.sab">
               <span class="lever"></span>
             </label>
           </div>
@@ -92,7 +92,7 @@
         <div class="col s1">
           <div class="switch center-align">
             <label>
-              <input type="checkbox">
+              <input type="checkbox" v-model="rodizio.dias.dom">
               <span class="lever"></span>
             </label>
           </div>
@@ -100,7 +100,7 @@
         <div class="col s1">
           <div class="switch center-align">
             <label>
-              <input type="checkbox">
+              <input type="checkbox" v-model="rodizio.dias.rjm">
               <span class="lever"></span>
             </label>
           </div>
@@ -118,8 +118,86 @@
           </div>
         </div>
       </div>
+      <div class="row" v-for="participante in rodizio.participantes" v-bind:key="participante.ordem">
+        <div class="col s2">
+          <div class="input-field">
+            <input type="text" v-model="participante.nome" required>
+            <label>Nome</label>
+          </div>
+        </div>
+        <div class="col s2">
+          <div class="input-field">
+            <input type="text" v-model="participante.telefone" required>
+            <label>telefone</label>
+          </div>
+        </div>
+        <div class="col s1">
+          <div class="switch center-align">
+            <label>
+              <input type="checkbox" :disabled="!rodizio.dias.seg" v-model="participante.disponibilidade.seg">
+              <span class="lever"></span>
+            </label>
+          </div>
+        </div>
+        <div class="col s1">
+          <div class="switch center-align">
+            <label>
+              <input type="checkbox" :disabled="!rodizio.dias.ter" v-model="participante.disponibilidade.ter">
+              <span class="lever"></span>
+            </label>
+          </div>
+        </div>
+        <div class="col s1">
+          <div class="switch center-align">
+            <label>
+              <input type="checkbox" :disabled="!rodizio.dias.qua" v-model="participante.disponibilidade.qua">
+              <span class="lever"></span>
+            </label>
+          </div>
+        </div>
+        <div class="col s1">
+          <div class="switch center-align">
+            <label>
+              <input type="checkbox" :disabled="!rodizio.dias.qui" v-model="participante.disponibilidade.qui">
+              <span class="lever"></span>
+            </label>
+          </div>
+        </div>
+        <div class="col s1">
+          <div class="switch center-align">
+            <label>
+              <input type="checkbox" :disabled="!rodizio.dias.sex" v-model="participante.disponibilidade.sex">
+              <span class="lever"></span>
+            </label>
+          </div>
+        </div>
+        <div class="col s1">
+          <div class="switch center-align">
+            <label>
+              <input type="checkbox" :disabled="!rodizio.dias.sab" v-model="participante.disponibilidade.sab">
+              <span class="lever"></span>
+            </label>
+          </div>
+        </div>
+        <div class="col s1">
+          <div class="switch center-align">
+            <label>
+              <input type="checkbox" :disabled="!rodizio.dias.dom" v-model="participante.disponibilidade.dom">
+              <span class="lever"></span>
+            </label>
+          </div>
+        </div>
+        <div class="col s1">
+          <div class="switch center-align">
+            <label>
+              <input type="checkbox" :disabled="!rodizio.dias.rjm" v-model="participante.disponibilidade.rjm">
+              <span class="lever"></span>
+            </label>
+          </div>
+        </div>
+      </div>
       <div class="row">
-          <a class="btn-floating blue"><i class="material-icons">add</i></a>
+          <a @click="novoParticipante" class="btn-floating blue"><i class="material-icons">add</i></a>
       </div>
       <div class="buttons">
         <button type="submit" class="btn blue">Gravar</button>
@@ -139,19 +217,26 @@
           rodizio: {
             descricao: null,
             dias: {
-              seg: false, ter: false, qua: false, qui: false, sex: false, sab: false, rjm: false
+              seg: false, ter: false, qua: false, qui: false, sex: false, sab: false, dom: false, rjm: false
             },
             participantes: []
           }
         }
       },
       methods: {
+        novoParticipante () {
+          this.rodizio.participantes.push({
+            orgem: this.rodizio.participantes.length + 1,
+            nome: '',
+            telefone: '',
+            disponibilidade: {
+              seg: false, ter: false, qua: false, qui: false, sex: false, sab: false, dom: false, rjm: false
+            }
+          })
+        },
         salvarRodizio () {
           db.collection('rodizios').add({
-            employee_id: this.employee_id,
-            name: this.name,
-            dept: this.dept,
-            position: this.position
+
           })
           .then(docRef => {
             this.$router.push('/')

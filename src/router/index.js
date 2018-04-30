@@ -65,7 +65,6 @@ let router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  console.log(to)
   if (to.matched.some(record => record.meta.login)) {
     if (!firebase.auth().currentUser) {
       next({ path: '/login', query: { redirect: to.fullPath } });
@@ -74,7 +73,7 @@ router.beforeEach((to, from, next) => {
     }
   } else if (to.matched.some(record => record.meta.guest)) {
     if (firebase.auth().currentUser) {
-      next({ path: '/',  query: { redirect: to.fullPath } });
+      next({ path: '/' });
     } else {
       next();
     }
