@@ -64,5 +64,4 @@ export default {
     border-bottom: 1px solid #9e9e9e !important;
     box-shadow: none !important;
   }
-
 </style>

@@ -1,6 +1,4 @@
-+-*+-*-+*-*
--*
--*<template>
+<template>
   <nav>
     <div class="nav-wrapper blue">
       <div class="container">
@@ -56,29 +54,29 @@ export default {
 };
 </script>
 
-<style scoped>
-nav {
-  margin-bottom: 10px;
-}
+<style lang="less" scoped>
+  nav {
+    margin-bottom: 10px;
+  }
 
-span.link {
-  cursor: pointer;
-}
+  span.link {
+    cursor: pointer;
+  }
 
-span.email {
-  position: relative;
-  left: 0px;
-  top: 0px;
-}
+  span.email {
+    position: relative;
+    left: 0px;
+    top: 0px;
+  }
 
-.user-view > span.btn {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-}
+  .user-view > span.btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+  }
 
-.usuario {
-  margin-right: 20px;
-  margin-left: 30px;
-}
+  .usuario {
+    margin-right: 20px;
+    margin-left: 30px;
+  }
 </style>
